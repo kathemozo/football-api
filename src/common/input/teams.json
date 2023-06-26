@@ -1,20 +1,4 @@
 [
-  {"name":"string",
-  "nickName":"string",
-  "creationYear":"number",
-  "stadiumName":"string",
-  "country":"string",
-  "city":"string"}
-]
-[
-  {
-    "name": "Real Madrid",
-    "nickName": "Los Blancos",
-    "creationYear": 1902,
-    "stadiumName": "Santiago Bernabéu",
-    "country": "Spain",
-    "city": "Madrid"
-  },
   {
     "name": "FC Barcelona",
     "nickName": "Barça",
@@ -175,5 +159,4 @@
     "country": "England",
     "city": "Manchester"
   }
-  
 ]
