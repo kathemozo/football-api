@@ -12,6 +12,21 @@ export class Team {
 
   @Prop()
   name: string;
+
+  @Prop()
+  nickname: string;
+
+  @Prop()
+  creationYear: number;
+
+  @Prop()
+  stadium: string;
+
+  @Prop()
+  country: string;
+
+  @Prop()
+  city: number;
 }
 
 export const TeamSchema = SchemaFactory.createForClass(Team);

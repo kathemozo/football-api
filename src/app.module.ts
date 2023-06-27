@@ -7,6 +7,8 @@ import { ConfigModule } from './config/config.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigService } from '@nestjs/config';
 import { configType } from './config/configuration';
+import { CompetitionsModule } from './competitions/competitions.module';
+import { AssociationsModule } from './associations/associations.module';
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { configType } from './config/configuration';
 
       inject: [ConfigService],
     }),
+    CompetitionsModule,
+    AssociationsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
