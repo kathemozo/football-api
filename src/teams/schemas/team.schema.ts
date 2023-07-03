@@ -6,7 +6,7 @@ import { HydratedDocument } from 'mongoose';
 export type TeamDocument = HydratedDocument<Team>;
 
 //Schema--------------------------------------------------------
-@Schema()
+@Schema({ timestamps: true })
 export class Team {
   _id: string;
 
@@ -26,7 +26,7 @@ export class Team {
   country: string;
 
   @Prop()
-  city: number;
+  city: string;
 }
 
 export const TeamSchema = SchemaFactory.createForClass(Team);

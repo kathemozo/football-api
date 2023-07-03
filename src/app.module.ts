@@ -9,6 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { configType } from './config/configuration';
 import { CompetitionsModule } from './competitions/competitions.module';
 import { AssociationsModule } from './associations/associations.module';
+import { TittlesModule } from './tittles/tittles.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { AssociationsModule } from './associations/associations.module';
     }),
     CompetitionsModule,
     AssociationsModule,
+    TittlesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
