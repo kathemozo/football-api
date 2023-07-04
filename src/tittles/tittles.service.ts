@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, Logger } from '@nestjs/common';
 import { CommonErrors } from '../common/errors/common.errors';
 import { Tittle, TittleDocument } from './schemas/tittle.schema';
-import mongoose, { Model, mongo } from 'mongoose';
+import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   Competition,
@@ -25,7 +25,21 @@ export class TittlesService {
           competition: competition._id,
         })
         .populate({ path: 'winner' });
-      return tittles;
+
+      const tittlesList = tittles.map((tittle) => {
+        return {
+          team: tittle.winner['name'],
+          season: tittle.season,
+          tittle: competition.name,
+        };
+      });
+      const sortList = tittlesList.sort((a, b): any => {
+        const yearA = a.season.slice(0, 4);
+        const yearB = b.season.slice(0, 4);
+
+        return parseInt(yearA) - parseInt(yearB);
+      });
+      return sortList;
     } catch (error) {
       this.logger.error('error ' + error, error.stack);
       throw new BadRequestException(CommonErrors.UNKNOW_ERROR);

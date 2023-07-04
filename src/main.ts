@@ -27,8 +27,8 @@ async function bootstrap() {
 
   //swagger
   const config = new DocumentBuilder()
-    .setTitle('football')
-    .setDescription('FootballAPI description')
+    .setTitle('footballAPI')
+    .setDescription('Football API')
     .setVersion('1.0')
     .addTag('football')
     .build();

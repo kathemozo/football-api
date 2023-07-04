@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Team, TeamDocument } from './schemas/team.schema';
 import { Model } from 'mongoose';
 import { metadataDTO } from '../common/dto/metadata.dto';
+import { CreateTeamDTO } from './dto/create-team.dto';
+import { CommonErrors } from '../common/errors/common.errors';
 
 @Injectable()
 export class TeamsService {
@@ -12,17 +14,17 @@ export class TeamsService {
     private readonly teamModel: Model<TeamDocument>,
   ) {}
 
-  async get(page: number, tam: number) {
+  async get(pag = 1, tam = 10) {
     try {
       const query = this.teamModel.find().sort({ createdAt: 'desc' });
       const [teams, total] = await Promise.all([
-        query.skip((page - 1) * tam).limit(tam),
+        query.skip((pag - 1) * tam).limit(tam),
         this.teamModel.countDocuments(query),
       ]);
 
       const metadata: metadataDTO = {
         total,
-        page,
+        page: pag,
         tam,
       };
 
@@ -32,7 +34,7 @@ export class TeamsService {
       };
     } catch (error) {
       this.logger.error('error ' + error, error.stack);
-      throw new BadRequestException('unknow error');
+      throw new BadRequestException(CommonErrors.UNKNOW_ERROR);
     }
   }
 
@@ -42,7 +44,18 @@ export class TeamsService {
       return team;
     } catch (error) {
       this.logger.error('error ' + error, error.stack);
-      throw new BadRequestException('unknow error');
+      throw new BadRequestException(CommonErrors.UNKNOW_ERROR);
+    }
+  }
+
+  async createTeam(teamData: CreateTeamDTO) {
+    try {
+      const newTeam = new this.teamModel({ ...teamData });
+      await newTeam.save();
+      return newTeam;
+    } catch (error) {
+      this.logger.error('error ' + error, error.stack);
+      throw new BadRequestException(CommonErrors.UNKNOW_ERROR);
     }
   }
 }
